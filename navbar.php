@@ -144,7 +144,7 @@
           </li>
 
 	  <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="">
+            <a class="nav-link" data-toggle="modal" data-target="#OpcionesDeRegistro" href="">
             <i class="fa fa-fw fa-registered" ></i>Registrarse</a>
           </li>
         <?php 
@@ -152,7 +152,7 @@
         else 
         { ?>
           <li class="nav-item">
-            <a class="nav-link" href="userprof.php">
+            <a class="nav-link">
               <i class="fa fa-fw fa-user"></i>  
               <?php
               if ( $_SESSION["TipoUsuario"] == "Administrador" ) 
@@ -173,7 +173,7 @@
       </div>
 </nav>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="OpcionesDeRegistro" tabindex="-1" role="dialog" aria-labelledby="OpcionesDeRegistroLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -184,8 +184,8 @@
       </div>
       <div class="modal-body">Seleccione el tipo de registro</div>
       <div class="modal-footer">
-        <a class="btn btn-primary" href="Log/registrarProf.php">Profesor</a>
-        <a class="btn btn-success" href="Log/registrarEst.php">Estudiante</a>
+        <a class="btn btn-primary" href="Log/RegistrarProf.php">Profesor</a>
+        <a class="btn btn-success" href="Log/RegistrarEst.php">Estudiante</a>
       </div>
     </div>
   </div>

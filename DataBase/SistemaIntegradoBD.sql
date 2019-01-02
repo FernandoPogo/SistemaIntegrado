@@ -6,7 +6,7 @@
 
 USE test;
 DROP SCHEMA IF EXISTS SistemaIntegrado;
-CREATE SCHEMA SistemaIntegrado;
+CREATE SCHEMA SistemaIntegrado DEFAULT CHARACTER SET utf8 ;
 USE SistemaIntegrado;
 
 /*==============================================================*/
@@ -31,7 +31,7 @@ CREATE TABLE Facultad
 CREATE TABLE Seccion
 (
   CodigoSeccion INT NOT NULL AUTO_INCREMENT,
-  NombreSeccion VARCHAR(50) NOT NULL UNIQUE,
+  NombreSeccion VARCHAR(60) NOT NULL UNIQUE,
   TipoSeccion VARCHAR(50) NOT NULL,
   CodigoFacultad INT,
   CONSTRAINT Seccion_pk PRIMARY KEY (CodigoSeccion),
@@ -50,7 +50,7 @@ CREATE TABLE Usuario
   NombresUsuario VARCHAR(50),
   ApellidosUsuario VARCHAR(50),
   NombreUsuario VARCHAR(50) UNIQUE,
-  PasswordUsuario VARCHAR(255),
+  PasswordUsuario BLOB,
   EstadoUsuario BOOL,
   TipoUsuario VARCHAR(20),
   ImagenUsuario BLOB,

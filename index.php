@@ -15,23 +15,7 @@
      require "navbar.php";
     ?>
     <div class="content-wrapper">
-     <?php
-      if ( isset($_SESSION["Exitoso"])) {
-         echo('<div class="alert alert-success alert-dismissable">');
-         echo('<a href="#" class="close" data-dismiss="alert" arial-label="close">×</a>');
-         echo('<strong>!</strong> ');
-         echo('</div>');
-         unset($_SESSION["Exitoso"]);
-      }      
-      if ( isset($_SESSION["Registro"]) ) {
-         echo('<div class="alert alert-success alert-dismissable">');
-         echo('<a href="#" class="close" data-dismiss="alert" arial-label="close">×</a>');
-         echo($_SESSION["Registro"]);
-         echo('</div>');
-         unset($_SESSION["Registro"]);
-      }
-     ?>
-  
+     
      <div class="jumbotron">
        <img src="Imagenes/logoEPN.png" align="right" width=300px height=300px margin=25px>   
        <h1 class="display-4" align="center">
