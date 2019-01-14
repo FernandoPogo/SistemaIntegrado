@@ -10,7 +10,7 @@ if ( isset($_POST["correo"]) && isset($_POST["nombresUsuario"]) && isset($_POST[
     $NombresUsuario=$_POST["nombresUsuario"];
     $ApellidosUsuario=$_POST["apellidosUsuario"];
     $NombreUsuario=$_POST["nombreUsuario"];
-    $PasswordUsuario=password_hash($_POST["password"], PASSWORD_DEFAULT);
+    $PasswordUsuario=$_POST["password"];
     $TipoUsuario="Profesor";
     $SeccionUsuario=$_POST["seccionUsuario"];
     $Mensaje = "@v_Mensaje";
@@ -23,7 +23,7 @@ if ( isset($_POST["correo"]) && isset($_POST["nombresUsuario"]) && isset($_POST[
     $res=$conexion->query($StoreProcedure)->fetch();
     $Mensaje = $res[$Mensaje];
     
-    header( 'Location: ../index.php' ) ;
+    header( 'Location: ../Principal/index.php' ) ;
   }  
   else 
   {
@@ -34,10 +34,11 @@ if ( isset($_POST["correo"]) && isset($_POST["nombresUsuario"]) && isset($_POST[
 
 <!DOCTYPE html>
 <html lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 
 <head>
   <?php
-    require "../head.php";
+    require "../Principal/head.php";
   ?>
 
   <style>
@@ -128,10 +129,10 @@ if ( isset($_POST["correo"]) && isset($_POST["nombresUsuario"]) && isset($_POST[
     </div>
   </div>
   <!-- Bootstrap core JavaScript-->
-  <script src="Frameworks/jquery/jquery.min.js"></script>
-  <script src="Frameworks/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../Frameworks/jquery/jquery.min.js"></script>
+  <script src="../Frameworks/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- Core plugin JavaScript-->
-  <script src="Frameworks/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../Frameworks/jquery-easing/jquery.easing.min.js"></script>
 </body>
 
 </html>

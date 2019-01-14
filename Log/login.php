@@ -17,8 +17,6 @@
     $res=$conexion->query($StoreProcedure)->fetch();
     $Mensaje = $res[$Mensaje];
     
-    echo "<script>alert('$Password');</script>";
-
     if($Mensaje=='Administrador'||$Mensaje=='Profesor'||$Mensaje=='Estudiante')
     {
       $_SESSION["Usuario"] = $_POST["NombreUsuario"];
@@ -28,7 +26,7 @@
       {
         $_SESSION["NombreUsuario"] = $Nombre;
       }
-      header( 'Location: ../index.php' ) ;
+      header( 'Location: ../Principal/index.php' ) ;
       return;
     }
     $_SESSION['errorLog']=$Mensaje;
@@ -37,10 +35,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 
   <head>
     <?php
-      require "../head.php";
+      require "../Principal/head.php";
     ?>
   </head>
 
@@ -75,7 +74,7 @@
               <input class="form-control" id="PasswordUsuario" name="PasswordUsuario" type="password" placeholder="Ingresar Contraseña" required>
             </div>
             <input class="btn btn-primary btn-block" type="submit" value="Ingresar">
-            <a class="btn btn-danger btn-block" href="../index.php">Cancelar</a>
+            <a class="btn btn-danger btn-block" href="../Principal/index.php">Cancelar</a>
           </form>
           <div class="text-center">
             <a class="btn btn-link"  data-toggle="modal" data-target="#OpcionesDeRegistro" href="">Registrarse</a>

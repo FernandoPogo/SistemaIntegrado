@@ -68,10 +68,11 @@ CREATE TABLE ObjetoAprendizaje
 (
   CodigoObjetoAprendizaje INT NOT NULL AUTO_INCREMENT,
   NombreObjetoAprendizaje VARCHAR(50),
-  DescripcionObjetoAprendizaje VARCHAR(200),
-  ArchivoObjetoAprendizaje BLOB,
+  DescripcionObjetoAprendizaje TEXT,
+  ArchivoObjetoAprendizaje TINYTEXT,
   FechaCreacionObjetoAprendizaje DATE,
   EstadoObjetoAprendizaje BOOL,
+  TipoObjetoAprendizaje VARCHAR(20),
   CodigoUsuario INT,
   CodigoMateria INT,
   CONSTRAINT ObjetoAprendizaje_pk PRIMARY KEY (CodigoObjetoAprendizaje)
@@ -121,7 +122,9 @@ CREATE TABLE Foro
 (
   CodigoForo INT NOT NULL AUTO_INCREMENT,
   NombreForo VARCHAR(50),
-  DescripcionForo VARCHAR(200),
+  DescripcionForo TEXT,
+  EstadoForo BOOL,
+  TipoForo VARCHAR(20),
   FechaCreacionForo DATE,
   CodigoUsuario INT,
   CodigoMateria INT,
@@ -137,7 +140,8 @@ CREATE INDEX ForoDe ON Foro(CodigoMateria);
 CREATE TABLE Opinion
 (
   CodigoOpinion INT NOT NULL AUTO_INCREMENT,
-  Opinion BLOB,
+  Opinion TEXT,
+  FechaOpinion DATETIME,
   FK_CodigoOpinion INT,
   CodigoForo INT,
   CodigoUsuario INT,
