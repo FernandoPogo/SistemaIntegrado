@@ -15,15 +15,29 @@ if ( isset($_POST["correo"]) && isset($_POST["nombresUsuario"]) && isset($_POST[
     $SeccionUsuario=$_POST["seccionUsuario"];
     $Mensaje = "@v_Mensaje";
 
-    $StoreProcedure =' CALL sp_RegistrarUsuario (\''.$CorreoUsuario.'\',\''.$NombresUsuario.'\',\''.$ApellidosUsuario.'\',\''.$NombreUsuario.'\',\''.$PasswordUsuario.'\',\''.$TipoUsuario.'\',\''.$SeccionUsuario.'\','.$Mensaje.');';    
-    $q=$conexion->exec($StoreProcedure);
+    if (mkdir("../Almacenamiento/$NombreUsuario", 0777, true)) 
+    {
+      chmod("../Almacenamiento/$NombreUsuario", 0777);
+      mkdir("../Almacenamiento/$NombreUsuario/Repositorio", 0777, true);
+      chmod("../Almacenamiento/$NombreUsuario/Repositorio", 0777);
+      mkdir("../Almacenamiento/$NombreUsuario/Comentarios", 0777, true);
+      chmod("../Almacenamiento/$NombreUsuario/Comentarios", 0777);
+      mkdir("../Almacenamiento/$NombreUsuario/Perfil", 0777, true);
+      chmod("../Almacenamiento/$NombreUsuario/Perfil", 0777);
 
-    $StoreProcedure = 'Select '.$Mensaje;
+      $StoreProcedure =' CALL sp_RegistrarUsuario (\''.$CorreoUsuario.'\',\''.$NombresUsuario.'\',\''.$ApellidosUsuario.'\',\''.$NombreUsuario.'\',\''.$PasswordUsuario.'\',\''.$TipoUsuario.'\',\''.$SeccionUsuario.'\','.$Mensaje.');';    
+      $q=$conexion->exec($StoreProcedure);
+
+      $StoreProcedure = 'Select '.$Mensaje;
     
-    $res=$conexion->query($StoreProcedure)->fetch();
-    $Mensaje = $res[$Mensaje];
-    
-    header( 'Location: ../Principal/index.php' ) ;
+      $res=$conexion->query($StoreProcedure)->fetch();
+      $Mensaje = $res[$Mensaje];
+
+      echo "<script>alert('$Mensaje');</script>";
+
+      header( 'Location: ../Principal/index.php' ) ;
+    }
+    echo "<script>alert('El usuario ya existe');</script>";
   }  
   else 
   {
@@ -106,7 +120,7 @@ if ( isset($_POST["correo"]) && isset($_POST["nombresUsuario"]) && isset($_POST[
                 $Facultad = '';
                 foreach ($resultado as $row) 
                 {
-                  if ($row['NombreFacultad'] != $facultad) 
+                  if ($row['NombreFacultad'] != $Facultad) 
                   {
                     $Facultad = $row['NombreFacultad'];
                     echo('<optgroup label="' . $Facultad . '">');

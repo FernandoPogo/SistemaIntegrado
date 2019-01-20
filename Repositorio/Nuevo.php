@@ -128,8 +128,6 @@
       } 
       else 
       {
-        alert(NombreUsuario+" || "+ _("NombreOA")+" || "+_("MateriaOA")+" || "+ _("DescripcionOA") +" || "+ _("EstadoOA") +" || "+ _("TipoOA"));
-
         var ArchivoOA = document.getElementById("ArchivoOA").files[0];
         var formdata = new FormData();
         formdata.append("NombreUsuario",NombreUsuario);

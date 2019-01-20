@@ -50,8 +50,8 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL sp_RegistrarForo ('Pruebas pasrciales','Alguien sabe doande puedo estudiar','Activo','Publico','admin','redes',@v_Mensaje);
-Select @v_Mensaje;
+/*CALL sp_RegistrarForo ('Pruebas pasrciales','Alguien sabe doande puedo estudiar','Activo','Publico','admin','redes',@v_Mensaje);
+Select @v_Mensaje;*/
 
 /*==============================================================*/
 /* ObtenerForos                                                 */
@@ -84,7 +84,7 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL sp_ObtenerForos ('','Todas','fpogo');
+/*CALL sp_ObtenerForos ('','Todas','fpogo');*/
 
 /*==============================================================*/
 /* RegistrarComentario                                          */
@@ -110,8 +110,8 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL sp_RegistrarComentario (1,'admin','Ya termine',@v_Mensaje);
-Select @v_Mensaje;
+/*CALL sp_RegistrarComentario (1,'admin','Ya termine',@v_Mensaje);
+Select @v_Mensaje;*/
 
 /*==============================================================*/
 /* ObtenerComentarios                                           */
@@ -129,7 +129,7 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL sp_ObtenerComentarios (1);
+/*CALL sp_ObtenerComentarios (1);*/
 
 /*==============================================================*/
 /* ObtenerMisForos                                              */
@@ -148,7 +148,7 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL sp_ObtenerMisForos ('admin');
+/*CALL sp_ObtenerMisForos ('admin');*/
 
 /*==============================================================*/
 /* ModificarEstadoMisForos                                              */
@@ -166,7 +166,7 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL sp_ModificarEstadoMisForos (1,1);
+/*CALL sp_ModificarEstadoMisForos (1,1);*/
 
 
 /*==============================================================*/
@@ -193,7 +193,7 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL sp_ModificarTipoMisForos (1,'Publico');
+/*CALL sp_ModificarTipoMisForos (1,'Publico');*/
 
 /*==============================================================*/
 /* EliminarForo                                              */
@@ -213,5 +213,5 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL sp_EliminarForo (4);
+/*CALL sp_EliminarForo (4);*/
 

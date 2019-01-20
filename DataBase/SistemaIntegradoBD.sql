@@ -31,7 +31,7 @@ CREATE TABLE Facultad
 CREATE TABLE Seccion
 (
   CodigoSeccion INT NOT NULL AUTO_INCREMENT,
-  NombreSeccion VARCHAR(60) NOT NULL UNIQUE,
+  NombreSeccion VARCHAR(80) NOT NULL UNIQUE,
   TipoSeccion VARCHAR(50) NOT NULL,
   CodigoFacultad INT,
   CONSTRAINT Seccion_pk PRIMARY KEY (CodigoSeccion),
@@ -141,6 +141,8 @@ CREATE TABLE Opinion
 (
   CodigoOpinion INT NOT NULL AUTO_INCREMENT,
   Opinion TEXT,
+  RutaImagen TINYTEXT,
+  RutaVideo TINYTEXT,
   FechaOpinion DATETIME,
   FK_CodigoOpinion INT,
   CodigoForo INT,
@@ -163,6 +165,24 @@ CREATE TABLE Materia
 );
 
 /*==============================================================*/
+/* Colaborador                                                  */
+/*==============================================================*/
+
+CREATE TABLE Colaborador
+(
+  CodigoColaborador INT NOT NULL AUTO_INCREMENT,
+  CedulaColaborador VARCHAR(10),
+  FechaNacimientoColaborador DATE,
+  DireccionColaborador TEXT,
+  TelefonoColaborador VARCHAR(10),
+  SexoColaborador VARCHAR(10),
+  ImagenColaborador TEXT,  
+  EstadoColaborador BOOL,
+  CodigoUsuario INT,
+  CONSTRAINT CodigoColaborador_pk PRIMARY KEY (CodigoColaborador)  
+);
+
+/*==============================================================*/
 /* FKs                                                       */
 /*==============================================================*/
 
@@ -180,4 +200,5 @@ ALTER TABLE Opinion ADD CONSTRAINT OpinionDe FOREIGN KEY (CodigoForo) REFERENCES
 ALTER TABLE Opinion ADD CONSTRAINT CriterioDe FOREIGN KEY (CodigoUsuario) REFERENCES Usuario (CodigoUsuario) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE Foro ADD CONSTRAINT ForoDe FOREIGN KEY (CodigoMateria) REFERENCES Materia (CodigoMateria) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE ObjetoAprendizaje ADD CONSTRAINT ObjetoAprendizajeDe FOREIGN KEY (CodigoMateria) REFERENCES Materia (CodigoMateria) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE Colaborador ADD CONSTRAINT Colabora FOREIGN KEY (CodigoUsuario) REFERENCES Usuario (CodigoUsuario) ON DELETE NO ACTION ON UPDATE NO ACTION;
 

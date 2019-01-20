@@ -15,7 +15,7 @@
   }
 
   $NombreUsuario = $_POST["NombreUsuario"];
-  if(move_uploaded_file($fileTmpLoc, "../Almacenamiento/$NombreUsuario/$fileName"))
+  if(move_uploaded_file($fileTmpLoc, "../Almacenamiento/$NombreUsuario/Repositorio/$fileName"))
   {
     $NombreOA=$_POST["NombreOA"];
     $DescripcionOA=$_POST["DescripcionOA"];

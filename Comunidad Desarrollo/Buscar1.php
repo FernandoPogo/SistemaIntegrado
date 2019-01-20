@@ -7,9 +7,20 @@ if(isset($_POST["NuevoComentario"]))
   $NewCodigoForo=$_POST["CodigoForo"];
   $NewUsuario=$_SESSION["NombreUsuario"];
   $NewOpinion=$_POST["NuevoComentario"];
+
+  $fileName = $_FILES["RutaImagen"]["name"];
+  $fileTmpLoc = $_FILES["RutaImagen"]["tmp_name"]; 
+  $fileType = $_FILES["RutaImagen"]["type"]; 
+  $fileSize = $_FILES["RutaImagen"]["size"]; 
+  $fileErrorMsg = $_FILES["RutaImagen"]["error"];
+
+  $NewRutaVideo=$_POST["RutaVideo"];
   $Mensaje = "@v_Mensaje";
     
-  $StoreProcedure ='CALL sp_RegistrarComentario ('.$NewCodigoForo.',\''.$NewUsuario.'\',\''.$NewOpinion.'\',@v_Mensaje);
+  move_uploaded_file($fileTmpLoc, "../Almacenamiento/$NewUsuario/Comentarios/$fileName");
+  $NewRutaImagen="../Almacenamiento/$NewUsuario/Comentarios/$fileName";
+
+  $StoreProcedure ='CALL sp_RegistrarComentario ('.$NewCodigoForo.',\''.$NewUsuario.'\',\''.$NewOpinion.'\',\''.$NewRutaImagen.'\',\''.$NewRutaVideo.'\',@v_Mensaje);
 ';
   $resultado=$conexion->prepare($StoreProcedure);
   $resultado->execute();
@@ -153,33 +164,12 @@ if(isset($_POST["NuevoComentario"]))
   <div class="content-wrapper bg-light">
     <div class="container">
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Tema del foro" title="Ingrese el tema del foro">
-        
-    <div class="form-group">
-      <label for="MateriaForo">Materia</label>
-      <select class="form-control" id="MateriaForo" name="MateriaForo">
-
-      <?php
-	require ('../DataBase/ConexionBD.php');
-        $StoreProcedure="CALL sp_obtenerMaterias";
-
-        $resultado=$conexion->prepare($StoreProcedure);
-
-        if($resultado->execute())
-        { 
-            while ($materia = $resultado->fetch()) 
-            {
-              echo('<option>' . $materia['NombreMateria'] . '</option>');   
-            }
-        }
-      ?>
-      </select>
-    </div>
-                      
+                          
     <table id="myTable">
       <tr class="header">
         <th style="width:30%;">Tema</th>
         <th style="width:30%;">Autor</th>
-        <th style="width:30%;">Tema</th>
+        <th style="width:30%;">Materia</th>
         <th style="width:20%;">Fecha</th>
         <th style="width:20%;">Estado</th>
         <th style="width:20%;">Tipo</th>
@@ -250,7 +240,7 @@ if(isset($_POST["NuevoComentario"]))
                       echo '</div>';
                     echo '</li>';
                   echo '</div>';
-                  echo '<br><br />';
+                  echo '<br />';
 
                   echo '<div class="comments">';
                     echo '<ul class="list-group">';
@@ -264,16 +254,32 @@ if(isset($_POST["NuevoComentario"]))
                         {
                           $Opinion=$comentario['Opinion'];
                 	  $OpinionUsuario=$comentario['NombreUsuario'];
+                          $RutaImagen=$comentario['RutaImagen'];
+                          $RutaVideo=$comentario['RutaVideo'];
                           $FechaOpinion=$comentario['FechaOpinion'];
                           echo '<li class="list-group-item">';
                             echo '<div class="col-6">';
-                            echo '<strong>'.$OpinionUsuario.': </strong>&emsp;&emsp;&emsp;&emsp;';
+                              echo '<strong>'.$OpinionUsuario.': </strong>&emsp;&emsp;&emsp;&emsp;';
+                              echo '<br />';
   			    echo '</div>';
                             echo '<div class="offset-2">';
-                            echo $Opinion;
+                              echo $Opinion;
+                              if($RutaImagen != '../Almacenamiento/'.$OpinionUsuario.'/Comentarios/')
+                              {
+                                echo '<div><img src="'.$RutaImagen.'" style="width: 90%; height: 100%">';
+                                echo '<br />';
+                              }
+                              if($RutaVideo != '')
+                              {
+
+                                echo '<br />';
+                                echo '<iframe width="560" height="315" src="'.$RutaVideo.'" frameborder="2" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                                echo '<div>'.$RutaVideo.'</div>';
+                                echo '<br />';
+                              }
   			    echo '</div>';
                             echo '<div class="col offset-9">';
-                            echo $FechaOpinion;
+                              echo $FechaOpinion;
   			    echo '</div>';
                           echo '</li>';
                         }
@@ -284,6 +290,8 @@ if(isset($_POST["NuevoComentario"]))
                   echo '<form method="post" class="top5" enctype="multipart/form-data">';
                     echo '<div class="form-group">';
                       echo '<textarea name="NuevoComentario" rows="3" class="form-control"  placeholder="Ingrese un comentario" required></textarea>';
+                      echo '<input id="RutaImagen" name="RutaImagen" type="file" maxlength="150">';
+                      echo '<input class="form-control" placeholder="Ingrese link video" id="RutaVideo" name="RutaVideo" type="text">';
                     echo '</div>';
                     echo '<div class="form-group">';
                       echo '<div class="form-row">';

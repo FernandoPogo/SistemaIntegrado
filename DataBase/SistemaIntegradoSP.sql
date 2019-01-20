@@ -41,8 +41,6 @@ DELIMITER ;
 
 CALL sp_RegistrarUsuario ('sistemaintegrado@gmail.com','Administrador','Administrador','admin','admin','Administrador','Ingenieria en sistemas informaticos y de computacion',@v_Mensaje);
 Select @v_Mensaje;
-                                                                                           
-   
 
 /*==============================================================*/
 /* VerificarUsuarioPassword                                     */
@@ -75,8 +73,8 @@ BEGIN
 END //
 DELIMITER 
 
-CALL sp_VerificarUsuarioPassword ('admin','admin','Administrador',@v_Mensaje);
-Select @v_Mensaje;
+/*CALL sp_VerificarUsuarioPassword ('admin','admin','Administrador',@v_Mensaje);
+Select @v_Mensaje;*/
 
 /*==============================================================*/
 /* ObtenerSecciones                                             */
@@ -88,32 +86,22 @@ CREATE PROCEDURE sp_ObtenerSecciones		   (IN 		vi_TipoUsuario VARCHAR(50))
 BEGIN
   IF (vi_TipoUsuario LIKE 'Profesor')
   THEN 
-	SELECT s.NombreSeccion, f.NombreFacultad
+    SELECT s.NombreSeccion, f.NombreFacultad
     FROM Seccion AS s, Facultad AS f
     WHERE s.CodigoFacultad = f.CodigoFacultad
-    AND s.TipoSeccion LIKE 'Departamento';
+    AND s.TipoSeccion LIKE 'Departamento'
+    ORDER BY f.NombreFacultad;
   ELSE 
-	SELECT s.NombreSeccion, f.NombreFacultad
+    SELECT s.NombreSeccion, f.NombreFacultad
     FROM Seccion AS s, Facultad AS f
     WHERE s.CodigoFacultad = f.CodigoFacultad
-    AND s.TipoSeccion LIKE 'Carrera';
+    AND s.TipoSeccion LIKE 'Carrera'
+    ORDER BY f.NombreFacultad;
   END IF;
 END //
 DELIMITER 
 
-INSERT INTO Facultad (CodigoFacultad, NombreFacultad) VALUES ('1', 'Sistemas');
-INSERT INTO Seccion (CodigoSeccion, NombreSeccion, TipoSeccion, CodigoFacultad) VALUES ('1', 'Ingenieria en sistemas informaticos y de computacion', 'Carrera', '1');
-INSERT INTO Seccion (CodigoSeccion, NombreSeccion, TipoSeccion, CodigoFacultad) VALUES ('4', 'Investigacion en sistemas informaticos y de computacion', 'Departamento', '1');
-
-INSERT INTO Facultad (CodigoFacultad, NombreFacultad) VALUES ('2', 'Mecanica');
-INSERT INTO Seccion (CodigoSeccion, NombreSeccion, TipoSeccion, CodigoFacultad) VALUES ('2', 'Ingenieria mecanica', 'Carrera', '2');
-INSERT INTO Seccion (CodigoSeccion, NombreSeccion, TipoSeccion, CodigoFacultad) VALUES ('5', 'Investigacion mecanica', 'Departamento', '2');
-
-INSERT INTO Facultad (CodigoFacultad, NombreFacultad) VALUES ('3', 'Ambiental');
-INSERT INTO Seccion (CodigoSeccion, NombreSeccion, TipoSeccion, CodigoFacultad) VALUES ('3', 'Ingenieria ambiental', 'Carrera', '3');
-INSERT INTO Seccion (CodigoSeccion, NombreSeccion, TipoSeccion, CodigoFacultad) VALUES ('6', 'Investigacion Ambiental', 'Departamento', '3');
-
-CALL sp_ObtenerSecciones ('Profesor');
+/*CALL sp_ObtenerSecciones ('Profesor');*/
 
 /*==============================================================*/
 /* ObtenerMaterias                                              */
@@ -129,9 +117,4 @@ BEGIN
 END //
 +DELIMITER 
 
-INSERT INTO Materia (CodigoMateria, NombreMateria) VALUES ('1', 'Matematica');
-INSERT INTO Materia (CodigoMateria, NombreMateria) VALUES ('2', 'Quimica');
-INSERT INTO Materia (CodigoMateria, NombreMateria) VALUES ('3', 'Informatica');
-INSERT INTO Materia (CodigoMateria, NombreMateria) VALUES ('4', 'Otros');
-
-CALL sp_ObtenerMaterias ();
+/*CALL sp_ObtenerMaterias ();*/

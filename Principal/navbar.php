@@ -19,10 +19,10 @@
          </a>
          <ul class="sidenav-second-level collapse" id="RepoCollapse">
            <li>
-             <a href="">Nuevo </a>
+             <a href="../Repositorio/Nuevo.php">Nuevo </a>
            </li>
            <li>
-             <a href="">Buscar </a>
+             <a href="../Repositorio/Buscar.php">Buscar </a>
            </li>
            <li class="nav-item"data-toggle="tooltip" data-placement="rigth" title="EstadisticaComponents">
              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#EstadisticaCollapse" data-parent="#RepoCollapse">
@@ -57,7 +57,48 @@
              <a href="../Comunidad Desarrollo/MisForos.php">Mis Foros </a>
            </li>
          </ul>
+       
+         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponentss" data-parent="#Accordion">
+           <i class="fa fa-users" aria-hidden="true"></i>
+           <span class="nav-link-text">Colaboradores </span>
+         </a>
+         <ul class="sidenav-second-level collapse" id="collapseComponentss">
+
+           <?php
+           require_once "../DataBase/ConexionBD.php";
+  
+           $NombreUsuario = $_SESSION["NombreUsuario"];
+           $Mensaje = "@v_Mensaje";
+           $StoreProcedure ='CALL sp_ColaboradorNuevo(\''.$NombreUsuario.'\', @v_Mensaje);';
+           $q=$conexion->exec($StoreProcedure);
+
+           $StoreProcedure = 'Select '.$Mensaje;
+    
+           $res=$conexion->query($StoreProcedure)->fetch();
+           $Mensaje = $res[$Mensaje];
+    
+           if($Mensaje=='Nuevo Colaborador')
+           {
+           ?>
+             <li>
+               <a href="../Colaboradores/Nuevo.php">Nuevo </a>
+             </li>
+            <?php 
+            }
+            elseif($Mensaje=='Colaborador')
+            { ?>
+              <li>
+                <a href="../Colaboradores/Editar.php">Editar </a>
+              </li>
+            <?php 
+            } ?>
+                
+           <li>
+             <a href="../Colaboradores/Contribuciones.php">Contribuciones </a>
+           </li>
+         </ul>
        </li>
+
 
        <?php
        if ( $_SESSION["TipoUsuario"] == 'Profesor' || $_SESSION["TipoUsuario"] == 'Estudiante' ) 
@@ -133,6 +174,12 @@
                 <span class="nav-link-text">Comunidad de Desarrollo</span>
               </a>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Crear">
+              <a class="nav-link" href="../Principal/InfoColaboradores.php">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <span class="nav-link-text">Colaboradores</span>
+              </a>
+            </li>
           </ul>
 	<?php 
         } ?>
@@ -156,7 +203,26 @@
         { ?>
           <li class="nav-item">
             <a class="nav-link">
-              <i class="fa fa-fw fa-user"></i>  
+              <?php
+              $NombreUsuario = $_SESSION["NombreUsuario"];
+              $Mensaje = "@v_Mensaje";
+              $StoreProcedure ='CALL sp_FotografiaColaborador(\''.$NombreUsuario.'\', @v_Mensaje);';
+              $q=$conexion->exec($StoreProcedure);
+
+              $StoreProcedure = 'Select '.$Mensaje;
+    
+              $res=$conexion->query($StoreProcedure)->fetch();
+              $Mensaje = $res[$Mensaje];
+    
+              if ( $Mensaje == "" ) 
+              {
+                echo '<i class="fa fa-fw fa-user"></i>';
+              } else 
+              {
+                echo '  <img   src="'.$Mensaje.'"
+width="25" height="30" border="20" align="left">';
+              }  ?>
+  
               <?php
               if ( $_SESSION["TipoUsuario"] == "Administrador" ) 
               {

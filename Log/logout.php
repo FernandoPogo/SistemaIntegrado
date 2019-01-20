@@ -4,3 +4,4 @@
     
     session_destroy();
     header("Location: ../Principal/index.php");
+    unset($_SESION["NombreUsuario"]);
